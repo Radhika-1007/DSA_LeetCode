@@ -7,49 +7,34 @@ class Solution {
             }
         }
         List<List<String>> res = new ArrayList<List<String>>();
-        dfs(board, res, 0);
+        int leftrow[] = new int[n];
+        int upperdiagonal[] = new int[2*n -1];
+        int lowerdiagonal[] = new int[2*n - 1];
+        solve(0, res, board, leftrow, upperdiagonal, lowerdiagonal);
         return res;
-    }
-    private void dfs(char board[][], List<List<String>> res, int col){
-        int n = board.length;
-        if(col == n){
+    };
+    private static void solve(int col, List<List<String>> res, char board[][], int lr[], int ud[], int ld[]){
+        if(col == board.length){
             res.add(construct(board));
             return;
         }
-        for(int row = 0; row<n; row++){
-            if(validate(board, row, col)){
-                board[row][col] = 'Q';
-                dfs(board, res, col+1);
-                board[row][col] = '.';
+        for(int i = 0; i<board.length; i++){
+            if(lr[i] == 0 && ud[i + col] == 0 && ld[board.length - 1 + col - i] == 0){
+                board[i][col] = 'Q';
+                lr[i] = 1;
+                ud[i + col] = 1;
+                ld[board.length - 1 + col - i] = 1;
+                solve(col+1, res, board, lr, ud, ld);
+                board[i][col] = '.';
+                lr[i] = 0;
+                ud[i + col] = 0;
+                ld[board.length - 1 + col - i] = 0;
             }
         }
     }
-    private boolean validate(char board[][], int row, int col){
-        int srow = row;
-        int scol = col;
-        while(row >= 0 && col >= 0){
-            if(board[row][col] == 'Q') return false;
-            row--;
-            col--;
-        }
-        row = srow;
-        col = scol;
-        while(col >= 0){
-            if(board[row][col] == 'Q') return false;
-            col--;
-        }
-        row = srow;
-        col = scol;
-        while(col >= 0 && row < board.length){
-            if(board[row][col] == 'Q') return false;
-            col--;
-            row++;
-        }
-        return true;
-    }
-    private List<String> construct(char board[][]){
-        List<String> res = new ArrayList<>();
-        for(int i = 0; i<board.length; i++){
+        private static List<String> construct(char[][] board) {
+        List < String > res = new ArrayList < String > ();
+        for (int i = 0; i < board.length; i++) {
             String s = new String(board[i]);
             res.add(s);
         }
