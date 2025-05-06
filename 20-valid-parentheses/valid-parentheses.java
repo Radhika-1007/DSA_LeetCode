@@ -5,14 +5,14 @@ class Solution {
             char ch = s.charAt(i);
             if(ch == '(' || ch == '[' || ch == '{') st.push(ch);
             else{
-                if(st.empty()) return false;
+                if(st.isEmpty()) return false;
                 char c = st.peek();
                 
-                if(s.charAt(i)==')' && c=='(' || s.charAt(i)==']' && c=='[' ||s.charAt(i)=='}' && c=='{' ) st.pop();
+                if(ch==')' && c=='(' || ch==']' && c=='[' ||ch=='}' && c=='{' ) st.pop();
                 else return false;
             }
             
         }
-        return st.empty();
+        return st.isEmpty();
     }
 }
