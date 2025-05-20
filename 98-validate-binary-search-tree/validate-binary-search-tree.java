@@ -17,10 +17,9 @@ class Solution {
     public boolean isValidBST(TreeNode root) {
         return ValidBST(root, Long.MIN_VALUE, Long.MAX_VALUE);
     }
-    public boolean ValidBST(TreeNode root, long minV, long maxV){
+    public boolean ValidBST(TreeNode root, long minVal, long maxVal){
         if(root == null) return true;
-        if(root.val >= maxV || root.val <= minV) return false;
-        return ValidBST(root.left, minV, root.val) && ValidBST(root.right, root.val, maxV);
-
+        if(root.val >= maxVal || root.val <= minVal) return false;
+        return ValidBST(root.left, minVal, root.val) && ValidBST(root.right, root.val, maxVal);
     }
 }
