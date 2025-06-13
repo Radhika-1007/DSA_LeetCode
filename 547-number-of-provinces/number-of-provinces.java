@@ -11,9 +11,9 @@ class Solution {
         }
         return curr;
     }
-    private void dfs(int[][] isConnected, boolean vis[], int node){
+    private void dfs(int isConnected[][], boolean vis[], int node){
         vis[node] = true;
-        for(int j=0; j<isConnected.length; j++){
+        for(int j=0; j < isConnected.length; j++){
             if(isConnected[node][j] == 1 && !vis[j]){
                 dfs(isConnected, vis, j);
             }
