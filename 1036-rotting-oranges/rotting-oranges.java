@@ -1,48 +1,34 @@
 class Solution {
     public int orangesRotting(int[][] grid) {
-        int delr[] = {-1, 0, 1, 0};
-        int delc[] = {0, 1, 0, -1};
         int n = grid.length;
         int m = grid[0].length;
-        Queue<int[]> q = new LinkedList<>();
-        int freshCount = 0;
+        int time=0, fresh=0;
+        Queue<int []> q = new LinkedList<>();
         for(int i=0; i<n; i++){
             for(int j=0; j<m; j++){
-                if(grid[i][j] == 2){
-                    q.add(new int[]{i,j});
-                }
-                else if(grid[i][j] == 1) freshCount++;
+                if(grid[i][j] == 2) q.add(new int[]{i,j});
+                if(grid[i][j] == 1) fresh++;
             }
         }
-        int time = bfs(grid, q, delr, delc, freshCount);
-        return time;
-
-    }
-    private int bfs(int[][] grid, Queue<int[]> q,int delr[], int delc[], int freshCount){
-        int n = grid.length;
-        int m = grid[0].length;
-        int time = 0;
-        while(!q.isEmpty()){
-            int size = q.size();
-            boolean rottenThisMinute = false;
-            for(int i=0; i<size; i++){
-                int pos[] = q.poll();
+        int[][] dir = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}}; 
+        while(!q.isEmpty() && fresh !=0){
+           int len = q.size();
+           for(int i=0; i<len; i++){
+                int[] pos = q.poll();
                 int r = pos[0];
                 int c = pos[1];
-                for(int d=0; d<4; d++){
-                    int nr = r + delr[d];
-                    int nc = c + delc[d];
-                    if(nr>=0 && nr < n && nc >= 0 && nc < m && grid[nr][nc] == 1){
+                for(int j=0; j<4; j++){
+                    int nr = r + dir[j][0];
+                    int nc = c + dir[j][1];
+                    if(nr >= 0 && nr < n && nc >=0 && nc < m && grid[nr][nc] == 1){
                         grid[nr][nc] = 2;
-                        q.add(new int[]{nr, nc});
-                        freshCount--;
-                        rottenThisMinute = true;
+                        q.offer(new int[]{nr, nc});
+                        fresh--;
                     }
                 }
-                
-            }
-            if(rottenThisMinute) time++;
+           }
+           time++;
         }
-        return freshCount == 0 ? time : -1;
+        return (fresh == 0)? time : -1;
     }
 }
