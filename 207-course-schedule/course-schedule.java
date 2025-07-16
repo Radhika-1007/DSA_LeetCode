@@ -5,7 +5,7 @@ class Solution {
         for(int it[]: prerequisites){
             adj.get(it[0]).add(it[1]);
         }
-        int vis[] = new int[numCourses];
+        
         int indegree[] = new int[numCourses];
         for(int i=0; i<numCourses; i++){
             for(int it: adj.get(i)){
