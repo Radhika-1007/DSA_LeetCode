@@ -17,7 +17,7 @@ class Solution {
         }
         //collecting top k elements from end 
         List<Integer> resultList = new ArrayList<>();
-        for(int i=n; i>=0 && resultList.size() < k; i--){
+        for(int i=bucket.length-1; i>=0 && resultList.size() < k; i--){
             if(bucket[i] != null){
                 resultList.addAll(bucket[i]);
             }
