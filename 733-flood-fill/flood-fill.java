@@ -2,6 +2,7 @@ class Solution {
     public int[][] floodFill(int[][] image, int sr, int sc, int color) {
         int n = image.length, m = image[0].length;
         int ini = image[sr][sc];
+           if(ini == color) return image;
         int dir[][] = {{-1,0},{0,-1},{0,1},{1,0}};
         dfs(image, ini, color, dir, sr, sc);
         return image;
