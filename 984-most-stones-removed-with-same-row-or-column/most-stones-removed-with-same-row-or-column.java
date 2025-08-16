@@ -3,7 +3,7 @@ class DisjointSet{
     List<Integer> parent = new ArrayList<>();
     public DisjointSet(int n){
         for(int i=0; i<=n; i++){
-            size.add(1);
+            size.add(1); 
             parent.add(i);
         }
     }
@@ -19,7 +19,7 @@ class DisjointSet{
         int ulp_u = findUpar(u);
         int ulp_v = findUpar(v);
         if(ulp_u == ulp_v) return;
-        if(ulp_u > ulp_v){
+        if(size.get(ulp_u) > size.get(ulp_v)){
             parent.set(ulp_v, ulp_u);
             size.set(ulp_u, size.get(ulp_u) + size.get(ulp_v) );
         }
