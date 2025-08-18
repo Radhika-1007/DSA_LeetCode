@@ -3,14 +3,12 @@ class DisjointSet{
     List<Integer> parent = new ArrayList<>();
     public DisjointSet(int n){
         for(int i=0; i<=n; i++){
-            size.add(1); 
+            size.add(1);
             parent.add(i);
         }
     }
     public int findUpar(int node){
-        if(node == parent.get(node)){
-            return node;
-        }
+        if(node == parent.get(node)) return node;
         int ulp = findUpar(parent.get(node));
         parent.set(node, ulp);
         return parent.get(node);
@@ -21,38 +19,35 @@ class DisjointSet{
         if(ulp_u == ulp_v) return;
         if(size.get(ulp_u) > size.get(ulp_v)){
             parent.set(ulp_v, ulp_u);
-            size.set(ulp_u, size.get(ulp_u) + size.get(ulp_v) );
+            size.set(ulp_u, size.get(ulp_u) + size.get(ulp_v));
         }
         else{
             parent.set(ulp_u, ulp_v);
-            size.set(ulp_v, size.get(ulp_u) + size.get(ulp_v) );
+            size.set(ulp_v, size.get(ulp_u) + size.get(ulp_v));
         }
     }
 }
 class Solution {
     public int removeStones(int[][] stones) {
-        int maxRow = 0;
-        int maxCol = 0;
         int n = stones.length;
+        int maxRow = 0, maxCol = 0;
         for(int i=0; i<n; i++){
             maxRow = Math.max(maxRow, stones[i][0]);
             maxCol = Math.max(maxCol, stones[i][1]);
         }
         DisjointSet ds = new DisjointSet(maxRow + maxCol + 1);
-        HashMap<Integer, Integer> stonenodes = new HashMap<>();
+        HashSet<Integer> nodes = new HashSet<>();
         for(int i=0; i<n; i++){
-            int nodeRow = stones[i][0];
-            int nodeCol = stones[i][1] + maxRow + 1;
-            ds.unionSize(nodeRow, nodeCol);
-            stonenodes.put(nodeRow, 1);
-            stonenodes.put(nodeCol, 1);
+            int newRow = stones[i][0];
+            int newCol = stones[i][1] + maxRow + 1;
+            ds.unionSize(newRow, newCol);
+            nodes.add(newRow);
+            nodes.add(newCol);
         }
         int cnt = 0;
-        for(Map.Entry<Integer, Integer> it: stonenodes.entrySet()){
-            if(ds.findUpar(it.getKey()) == it.getKey()){
-                cnt++;
-            }
+        for(int it: nodes){
+            if(ds.findUpar(it) == it) cnt++;
         }
-        return n-cnt;
+        return n - cnt;
     }
 }
