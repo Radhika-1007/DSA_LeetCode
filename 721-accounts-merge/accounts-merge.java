@@ -35,26 +35,28 @@ class Solution {
         for(int i=0; i<n; i++){
             for(int j=1; j<accounts.get(i).size(); j++){
                 String mail = accounts.get(i).get(j);
-                if(!mp.containsKey(mail)) mp.put(mail, i);
+                if(!mp.containsKey(mail)){
+                    mp.put(mail, i);
+                }
                 else{
                     ds.unionSize(i, mp.get(mail));
                 }
             }
         }
-        ArrayList<String>[] mergeMail = new ArrayList[n];
-        for(int i=0; i<n; i++) mergeMail[i] = new ArrayList<String> ();
+        List<List<String>> merged = new ArrayList<>();
+        for(int i=0; i<n; i++) merged.add(new ArrayList<>());
         for(Map.Entry<String, Integer> it: mp.entrySet()){
             String mail = it.getKey();
             int node = ds.findUpar(it.getValue());
-            mergeMail[node].add(mail);
+            merged.get(node).add(mail);  
         }
         List<List<String>> ans = new ArrayList<>();
         for(int i=0; i<n; i++){
-            if(mergeMail[i].size() == 0) continue;
-            Collections.sort(mergeMail[i]);
+            if(merged.get(i).size() == 0) continue;
+            Collections.sort(merged.get(i));
             List<String> temp = new ArrayList<>();
             temp.add(accounts.get(i).get(0));
-            for(String it: mergeMail[i]){
+            for(String it: merged.get(i)){
                 temp.add(it);
             }
             ans.add(temp);
