@@ -27,7 +27,6 @@ class Solution {
                 if(curr.left != null) q.offer(curr.left);
                 if(curr.right != null) q.offer(curr.right);
                 subList.add(curr.val);
-
             }
             wrapperList.add(subList);
         }
