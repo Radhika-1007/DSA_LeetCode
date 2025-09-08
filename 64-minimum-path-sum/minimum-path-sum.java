@@ -10,9 +10,8 @@ class Solution {
     private int f(int dp[][], int grid[][], int i, int j){
         if(i==0 && j==0) return grid[0][0];
         if(dp[i][j] != -1) return dp[i][j];
-        int up = (i > 0) ? grid[i][j] + f(dp, grid, i-1, j) : Integer.MAX_VALUE;
-        int left = (j > 0) ? grid[i][j] + f(dp, grid, i, j-1) : Integer.MAX_VALUE;
-
+        int up = (i>0)? grid[i][j] + f(dp, grid, i-1, j): Integer.MAX_VALUE;
+        int left = (j>0)? grid[i][j] + f(dp, grid, i, j-1): Integer.MAX_VALUE;
         return dp[i][j] = Math.min(up, left);
     }
 }
