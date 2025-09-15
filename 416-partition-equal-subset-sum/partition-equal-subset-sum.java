@@ -10,20 +10,19 @@ class Solution {
         for(int i=0; i<n; i++){
             Arrays.fill(dp[i], -1);
         }
-        return f(n-1, target, nums, dp);
+        return f(dp, nums, target, n-1);
     }
-    private boolean f(int ind, int target, int nums[], int dp[][]){
+    private boolean f(int dp[][], int[]nums, int target, int ind){
         if(target == 0) return true;
         if(ind == 0) return nums[ind] == target;
         if(dp[ind][target] != -1) return dp[ind][target] == 1;
-        boolean nottake = f(ind-1, target, nums, dp);
+        boolean notTake = f(dp, nums, target, ind-1);
         boolean take = false;
         if(target >= nums[ind]){
-            take = f(ind-1, target-nums[ind], nums, dp);
+            take = f(dp, nums, target-nums[ind], ind-1);
         }
-        boolean result = take || nottake;
-        dp[ind][target] = result ? 1 : 0;
-
+        boolean result = notTake || take;
+        dp[ind][target] = result? 1: 0;
         return result;
     }
 }
