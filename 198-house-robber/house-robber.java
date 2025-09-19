@@ -1,16 +1,15 @@
 class Solution {
     public int rob(int[] nums) {
-        int n = nums.length;
-        int dp[] = new int[n+1];
+        int dp[] = new int[nums.length + 1];
         Arrays.fill(dp, -1);
-        return cache(n-1, nums, dp);
+        return f(nums, dp, nums.length-1);
     }
-    public int cache(int ind, int[] nums, int dp[]){
+    private int f(int nums[], int dp[], int ind){
         if(ind == 0) return nums[ind];
-        if(ind<0) return 0;
+        if(ind < 0) return 0;
         if(dp[ind] != -1) return dp[ind];
-        int pick = nums[ind] + cache(ind-2, nums, dp);
-        int notpick = 0 + cache(ind-1, nums, dp);
+        int pick = nums[ind] + f(nums, dp, ind-2);
+        int notpick = f(nums, dp, ind-1);
         return dp[ind] = Math.max(pick, notpick);
     }
 }
