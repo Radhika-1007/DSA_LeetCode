@@ -1,8 +1,8 @@
 /**
  * Definition for a binary tree node.
-  public class TreeNode {
-      int val;
-     TreeNode left;
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
  *     TreeNode right;
  *     TreeNode() {}
  *     TreeNode(int val) { this.val = val; }
@@ -18,6 +18,6 @@ class Solution {
         if(root == null) return 0;
         int lh = maxDepth(root.left);
         int rh = maxDepth(root.right);
-        return 1 + Math.max(lh,rh);
+        return 1 + Math.max(lh, rh);
     }
 }
