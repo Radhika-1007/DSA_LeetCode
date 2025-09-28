@@ -8,10 +8,11 @@ class Solution {
         return f(0, n-1, s, dp, n);
     }
     private int f(int ind1, int ind2, String s, int dp[][], int n){
-        if(ind1 > n-1 || ind2 < 0) return 0;
+        if(ind1 > ind2) return 0;
+        if(ind1 == ind2) return 1;
         if(dp[ind1][ind2] != -1) return dp[ind1][ind2];
         if(s.charAt(ind1) == s.charAt(ind2)){ 
-        return dp[ind1][ind2] = 1+ f(ind1+1, ind2-1, s, dp, n);
+        return dp[ind1][ind2] = 2 + f(ind1+1, ind2-1, s, dp, n);
         }
         return dp[ind1][ind2] = Math.max(f(ind1+1, ind2, s, dp, n), f(ind1, ind2-1, s, dp, n));
     }
