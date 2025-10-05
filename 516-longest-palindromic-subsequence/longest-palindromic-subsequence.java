@@ -5,15 +5,16 @@ class Solution {
         for(int i=0; i<n; i++){
             Arrays.fill(dp[i], -1);
         }
-        return f(0, n-1, s, dp, n);
+        return f(0, n-1, dp, s);
     }
-    private int f(int ind1, int ind2, String s, int dp[][], int n){
-        if(ind1 > ind2) return 0;
-        if(ind1 == ind2) return 1;
-        if(dp[ind1][ind2] != -1) return dp[ind1][ind2];
-        if(s.charAt(ind1) == s.charAt(ind2)){ 
-        return dp[ind1][ind2] = 2 + f(ind1+1, ind2-1, s, dp, n);
+    private int f(int i, int j, int dp[][], String s){
+        if(i>j) return 0;
+        if(i==j) return 1;
+        if(dp[i][j] != -1) return dp[i][j];
+        if(s.charAt(i) == s.charAt(j)){ 
+        return dp[i][j] = 2+ f(i+1, j-1, dp, s);
         }
-        return dp[ind1][ind2] = Math.max(f(ind1+1, ind2, s, dp, n), f(ind1, ind2-1, s, dp, n));
+        return dp[i][j] = Math.max(f(i+1, j, dp, s), f(i, j-1, dp, s));
+
     }
 }
