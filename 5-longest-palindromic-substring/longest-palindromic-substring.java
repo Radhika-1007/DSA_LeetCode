@@ -24,11 +24,11 @@ class Solution {
         if(i>j) return 1;
         if(dp[i][j] != -1) return dp[i][j];
         if(s.charAt(i) == s.charAt(j)){
-            dp[i][j] = isPalin(i+1, j-1, s, dp);
+            return dp[i][j] = isPalin(i+1, j-1, s, dp);
         }    
         else{
-            dp[i][j] = 0;
+            return dp[i][j] = 0;
         }
-        return dp[i][j];
+        
     }
 }
