@@ -1,43 +1,43 @@
 class Solution {
     public List<List<String>> solveNQueens(int n) {
         char board[][] = new char[n][n];
-        for(int i = 0; i<n; i++){
-            for(int j = 0; j<n; j++){
+        for(int i=0; i<n; i++){
+            for(int j=0; j<n; j++){
                 board[i][j] = '.';
             }
         }
-        List<List<String>> res = new ArrayList<List<String>>();
+        List<List<String>> res = new ArrayList<>();
         int leftrow[] = new int[n];
-        int upperdiagonal[] = new int[2*n -1];
-        int lowerdiagonal[] = new int[2*n - 1];
-        solve(0, res, board, leftrow, upperdiagonal, lowerdiagonal);
+        int upperdiagonal[] = new int[2*n-1];
+        int lowerdiagonal[] = new int[2*n-1];
+        solve(0, res, board, leftrow, upperdiagonal, lowerdiagonal, n);
         return res;
-    };
-    private static void solve(int col, List<List<String>> res, char board[][], int lr[], int ud[], int ld[]){
+        
+    }
+    public void solve(int col, List<List<String>> res, char board[][], int lr[], int ud[], int ld[], int n){
         if(col == board.length){
             res.add(construct(board));
-            return;
         }
-        for(int i = 0; i<board.length; i++){
-            if(lr[i] == 0 && ud[i + col] == 0 && ld[board.length - 1 + col - i] == 0){
+        for(int i=0; i<n; i++){
+            if(lr[i] == 0 && ud[col + i] == 0 && ld[n-1+col-i] == 0){
                 board[i][col] = 'Q';
                 lr[i] = 1;
-                ud[i + col] = 1;
-                ld[board.length - 1 + col - i] = 1;
-                solve(col+1, res, board, lr, ud, ld);
+                ud[col+i] = 1;
+                ld[n-1+col-i] = 1;
+                solve(col+1, res, board, lr, ud, ld, n);
                 board[i][col] = '.';
                 lr[i] = 0;
-                ud[i + col] = 0;
-                ld[board.length - 1 + col - i] = 0;
+                ud[col+i] = 0;
+                ld[n-1+col-i] = 0;
             }
         }
     }
-        private static List<String> construct(char[][] board) {
-        List < String > res = new ArrayList < String > ();
-        for (int i = 0; i < board.length; i++) {
+    public List<String> construct(char board[][]){
+        List<String> row = new ArrayList<>();
+        for(int i=0; i<board.length; i++){
             String s = new String(board[i]);
-            res.add(s);
+            row.add(s);
         }
-        return res;
+        return row;
     }
 }
