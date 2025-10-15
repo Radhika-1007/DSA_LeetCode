@@ -5,16 +5,16 @@ class Solution {
         for(int i=0; i<n; i++){
             Arrays.fill(dp[i], -1);
         }
-        return f(0, 1, prices, dp);
+        return f(0, 1, dp, prices);
     }
-    private int f(int i, int buy, int[] prices, int dp[][]){
-        if(i>= prices.length) return 0;
-        if(dp[i][buy] != -1) return dp[i][buy];
-        if(buy == 1){
-            return dp[i][buy] = Math.max( -prices[i] + f(i+1, 0, prices, dp), 0+ f(i+1, 1, prices, dp));
+    private int f(int ind, int buy, int dp[][], int prices[]){
+        if(ind >= prices.length) return 0;
+        if(dp[ind][buy] != -1) return dp[ind][buy];
+        if(buy==1){
+            return dp[ind][buy] = Math.max(-prices[ind] + f(ind, 0, dp, prices), 0 + f(ind+1, 1, dp, prices) );
         }
         else{
-            return dp[i][buy] = Math.max(prices[i] + f(i+2, 1, prices, dp), 0+f(i+1, 0, prices, dp));
+            return dp[ind][buy] = Math.max(prices[ind] + f(ind+2, 1, dp, prices), 0 + f(ind+1, 0, dp, prices));
         }
     }
 }
