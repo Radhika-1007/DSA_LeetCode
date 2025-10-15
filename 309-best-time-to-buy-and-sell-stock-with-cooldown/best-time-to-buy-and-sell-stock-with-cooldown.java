@@ -11,7 +11,7 @@ class Solution {
         if(ind >= prices.length) return 0;
         if(dp[ind][buy] != -1) return dp[ind][buy];
         if(buy==1){
-            return dp[ind][buy] = Math.max(-prices[ind] + f(ind, 0, dp, prices), 0 + f(ind+1, 1, dp, prices) );
+            return dp[ind][buy] = Math.max(-prices[ind] + f(ind + 1, 0, dp, prices), 0 + f(ind+1, 1, dp, prices) );
         }
         else{
             return dp[ind][buy] = Math.max(prices[ind] + f(ind+2, 1, dp, prices), 0 + f(ind+1, 0, dp, prices));
