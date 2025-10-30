@@ -1,20 +1,18 @@
 class Solution {
-    public void dfs(int i, int nums[], List<Integer> path,       List<List<Integer>> res){
-        if(i == nums.length){
-            res.add(new ArrayList<>(path));
+    public List<List<Integer>> subsets(int[] nums) {
+        List<List<Integer>> ans = new ArrayList<>();
+        f(nums, 0, ans, new ArrayList<>());
+        return ans;
+    }
+    public void f(int[] nums, int i, List<List<Integer>> ans, List<Integer> curr){
+        if(i>=nums.length){
+            ans.add(new ArrayList<>(curr));
             return;
         }
-        //include
-        path.add(nums[i]);
-        dfs(i+1, nums, path, res);
-        //exclude
-        path.remove(path.size() - 1);
-        dfs(i+1, nums, path, res);
-    }
-    public List<List<Integer>> subsets(int[] nums) {
-        List<List<Integer>> res = new ArrayList<>();
-        List<Integer> path = new ArrayList<>();
-        dfs(0, nums, path, res);
-        return res;
+        curr.add(nums[i]);
+        f(nums, i+1, ans, curr);
+        curr.remove(curr.size()-1);
+        f(nums, i+1, ans, curr);
+
     }
 }
