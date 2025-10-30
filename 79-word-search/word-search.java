@@ -1,30 +1,29 @@
 class Solution {
     public boolean exist(char[][] board, String word) {
-    
-        int dir[][] = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
-
+        int dir[][] = {{-1, 0}, {0,-1}, {0, 1}, {1,0}};
         for(int i=0; i<board.length; i++){
             for(int j=0; j<board[0].length; j++){
-                if(dfs(board, i, j, 0, word, dir)) return true;
+                if(dfs(board, i, j, 0, dir, word)) return true;
             }
         }
         return false;
     }
-    public boolean dfs(char board[][], int i, int j, int index, String word, int dir[][]){
+    public boolean dfs(char board[][], int row, int col, int index, int dir[][], String word){
         if(index == word.length()) return true;
-        if(i<0 || i>=board.length || j<0 || j>=board[0].length || board[i][j] != word.charAt(index)) return false;
-        char temp = board[i][j];
-        board[i][j] = '#';
-        for(int d=0; d<4; d++){
-            int nr = i+dir[d][0];
-            int nc = j+dir[d][1];
-            if(dfs(board, nr, nc, index+1, word, dir)){
-                board[i][j] = temp;
+        if(row<0 || col<0 || row>=board.length || col>=board[0].length || board[row][col] != word.charAt(index)) return false;
+        char temp = board[row][col];
+        board[row][col] = '#';
+        for(int i=0; i<4; i++){
+            int nr = row + dir[i][0];
+            int nc = col + dir[i][1];
+            if(dfs(board, nr, nc, index+1, dir, word)){
+                //restore
+                board[row][col] = temp;
                 return true;
             }
         }
-        //backtrack
-        board[i][j] = temp;
+        //backtack
+        board[row][col] = temp;
         return false;
     }
 }
