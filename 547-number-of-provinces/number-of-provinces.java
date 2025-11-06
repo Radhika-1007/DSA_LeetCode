@@ -1,22 +1,22 @@
 class Solution {
     public int findCircleNum(int[][] isConnected) {
         int n = isConnected.length;
-        boolean vis[] = new boolean[n];
+        int vis[] = new int[n];
         int curr = 0;
         for(int i=0; i<n; i++){
-            if(!vis[i]){
-                dfs(isConnected, vis, i);
+            if(vis[i] == 0){
                 curr++;
+                dfs(isConnected, vis, i);
             }
         }
         return curr;
     }
-    private void dfs(int[][] isConnected, boolean vis[], int node){
-        vis[node] = true;
-        for(int j=0; j<isConnected.length; j++){
-            if(isConnected[node][j] == 1 && !vis[j]){
-                dfs(isConnected, vis, j);
+    public void dfs(int isConnected[][], int vis[], int node){
+        vis[node] = 1;
+       for(int i=0; i<isConnected.length; i++){
+            if(isConnected[node][i] == 1 && vis[i] == 0){
+                dfs(isConnected, vis, i);
             }
-        }
+       }
     }
 }
