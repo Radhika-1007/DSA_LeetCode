@@ -4,7 +4,7 @@ class Solution {
         Arrays.sort(cuts);
         int arr[] = new int[c+2];
         arr[0] = 0;
-        int dp[][] = new int[c+1][c+1];
+        int dp[][] = new int[c+2][c+2];
         for(int i=0; i<c+1; i++) Arrays.fill(dp[i], -1);
         arr[arr.length - 1] = n;
         for(int i=1; i<arr.length-1; i++){
