@@ -3,7 +3,7 @@ class Solution {
         ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
         for(int i=0; i<numCourses; i++) adj.add(new ArrayList<>());
         for(int it[]: prerequisites){
-            adj.get(it[0]).add(it[1]);
+            adj.get(it[1]).add(it[0]);
         }
         int indegree[] = new int [numCourses];
         for(int i=0; i<numCourses; i++){
