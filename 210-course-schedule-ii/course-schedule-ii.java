@@ -26,7 +26,6 @@ class Solution {
             }
         }
         if(i == numCourses) return topo;
-        int arr[] = {};
-        return arr;
+        return new int[]{};
     }
 }
