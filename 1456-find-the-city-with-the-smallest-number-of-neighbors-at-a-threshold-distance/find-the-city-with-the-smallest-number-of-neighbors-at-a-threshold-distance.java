@@ -3,38 +3,41 @@ class Solution {
         int dist[][] = new int[n][n];
         for(int i=0; i<n; i++){
             for(int j=0; j<n; j++){
-                dist[i][j] = Integer.MAX_VALUE;
+                if(i==j) dist[i][j] = 0;
+                else dist[i][j] = (int) 1e9;
             }
         }
-        for (int[] edge : edges) {
+        for(int edge[]: edges){
             int u = edge[0], v = edge[1], wt = edge[2];
             dist[u][v] = wt;
-            dist[v][u] = wt; 
+            dist[v][u] = wt;
         }
-        for(int i=0; i<n; i++)dist[i][i] = 0;
-        for(int k=0; k<n; k++){
+
+        for(int via = 0; via<n; via++){
             for(int i=0; i<n; i++){
                 for(int j=0; j<n; j++){
-                    if(dist[i][k] != Integer.MAX_VALUE && dist[k][j] != Integer.MAX_VALUE){
-                        dist[i][j] = Math.min(dist[i][j], dist[i][k] + dist[k][j]);
+                    if(dist[i][via] != 1e9 && dist[via][j] != 1e9 && dist[i][via] + dist[via][j] < dist[i][j]){
+                        dist[i][j] = dist[i][via] + dist[via][j];
                     }
                 }
             }
         }
-        int cutMax = n+1;
-        int city = -1;
+
+        int city = -1, minCount = Integer.MAX_VALUE;
         for(int i=0; i<n; i++){
-            int cut = 0;
+            int count = 0;
             for(int j=0; j<n; j++){
-                if(dist[i][j] <= distanceThreshold){
-                    cut++;
+                if(i != j && dist[i][j] <= distanceThreshold){
+                    count++;
                 }
             }
-            if(cut <= cutMax){
-                cutMax = cut;
+            if(count <= minCount){
+                minCount = count;
                 city = i;
             }
         }
         return city;
+
+
     }
 }
