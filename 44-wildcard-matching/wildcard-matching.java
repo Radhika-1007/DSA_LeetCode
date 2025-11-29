@@ -9,7 +9,7 @@ class Solution {
         if(i<0 && j<0) return true;
         if(i>=0 && j<0) return false;
         if(i<0 && j>=0){
-            for(int k=j; k>=0; k--){
+            for(int k=0; k<=j; k++){
                 if(p.charAt(k) != '*') return false;
             }
             return true;
