@@ -16,6 +16,7 @@ class Solution {
             used[j] = true;
             if(f(j-1, target-nums[j], k, nums, used)) return true;
             used[j] = false;
+            if(target == 0) break;
         }
         return false;
     }
