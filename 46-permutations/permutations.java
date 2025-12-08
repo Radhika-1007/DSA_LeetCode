@@ -1,29 +1,24 @@
 class Solution {
-    private void findpermute(int ind, int nums[], List<List<Integer>> ans){
-        int n = nums.length;
-        if(ind == n){
-            List<Integer> ds = new ArrayList<>();
-            for(int i = 0; i<n; i++){
-                ds.add(nums[i]);
-            }
-            ans.add(new ArrayList<>(ds));
-            return;
-        }
-        for(int i = ind; i<n; i++){
-            swap(nums, i, ind);
-            findpermute(ind+1, nums, ans);
-            swap(nums, i, ind);
-        }
-    }
-    private void swap(int arr[], int i, int j){
-        int temp = arr[i]; 
-        arr[i] = arr[j];
-        arr[j] = temp;
-    }
     public List<List<Integer>> permute(int[] nums) {
+        int freq[] = new int[nums.length];
         List<List<Integer>> ans = new ArrayList<>();
-        findpermute(0, nums, ans);
+        List<Integer> path = new ArrayList<>();
+        f(nums, freq, ans, path);
         return ans;
     }
-    
+    private void f(int nums[], int freq[], List<List<Integer>> ans, List<Integer> path){
+        if(path.size() == nums.length) {
+            ans.add(new ArrayList<>(path));
+            return;
+        }
+        for(int i=0; i<nums.length; i++){
+            if(freq[i] == 0){
+                freq[i] = 1;
+                path.add(nums[i]);
+                f(nums, freq, ans, path);
+                path.remove(path.size()-1);
+                freq[i] = 0;
+            }
+        }
+    }
 }
