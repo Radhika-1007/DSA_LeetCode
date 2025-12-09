@@ -12,16 +12,14 @@ class Solution {
         int dp2[] = new int[temp2.size()];
         Arrays.fill(dp1, -1);
         Arrays.fill(dp2, -1);
-        int case1 = f(dp1, temp1, temp1.size()-1);
-        int case2 = f(dp2, temp2, temp2.size()-1);
-        return Math.max(case1, case2);
+        return Math.max(f(temp1.size() -1, dp1, temp1), f(temp2.size()-1, dp2, temp2));
     }
-    private int f(int dp[], ArrayList<Integer> nums, int ind){
-        if(ind<0) return 0;
-        if(ind==0) return nums.get(ind);
-        if(dp[ind] != -1) return dp[ind];
-        int pick = nums.get(ind) + f(dp, nums, ind-2);
-        int notpick = f(dp, nums, ind-1);
-        return dp[ind] = Math.max(pick, notpick);
+    private int f(int i, int dp[], ArrayList<Integer> nums){
+        if(i<0) return 0;
+        if(i==0) return nums.get(0);
+        if(dp[i] != -1) return dp[i];
+        int pick = nums.get(i) + f(i-2, dp, nums);
+        int notpick = f(i-1, dp, nums);
+        return dp[i] = Math.max(pick, notpick);    
     }
 }
