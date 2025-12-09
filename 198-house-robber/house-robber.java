@@ -1,15 +1,16 @@
 class Solution {
     public int rob(int[] nums) {
-        int dp[] = new int[nums.length + 1];
+        int n = nums.length;
+        int dp[] = new int[n];
         Arrays.fill(dp, -1);
-        return f(nums, dp, nums.length-1);
+        return f(n-1, nums, dp);
     }
-    private int f(int nums[], int dp[], int ind){
-        if(ind == 0) return nums[ind];
-        if(ind < 0) return 0;
-        if(dp[ind] != -1) return dp[ind];
-        int pick = nums[ind] + f(nums, dp, ind-2);
-        int notpick = f(nums, dp, ind-1);
-        return dp[ind] = Math.max(pick, notpick);
+    private int f(int i, int nums[], int dp[]){
+        if(i==0) return nums[i];
+        if(i<0) return 0;
+        if(dp[i] != -1) return dp[i];
+        int pick = nums[i] + f(i-2, nums, dp);
+        int notpick = f(i-1, nums, dp);
+        return dp[i] = Math.max(pick, notpick);
     }
 }
