@@ -1,12 +1,12 @@
 class Solution {
     public int lengthOfLIS(int[] nums) {
-        ArrayList<Integer> tails = new ArrayList<>();
+        ArrayList<Integer> temp = new ArrayList<>();
         for(int num: nums){
-            int idx = Collections.binarySearch(tails, num);
-            if(idx < 0) idx = -(idx+1);
-            if(idx == tails.size()) tails.add(num);
-            else tails.set(idx, num);
+            int idx = Collections.binarySearch(temp, num);
+            if(idx<0) idx = -(idx+1);
+            if(idx == temp.size()) temp.add(num);
+            else temp.set(idx, num);
         }
-        return tails.size();
+        return temp.size();
     }
 }
