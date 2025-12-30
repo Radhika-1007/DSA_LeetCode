@@ -1,8 +1,8 @@
 class Pair{
-    int node, time;
-    Pair(int n, int t){
+    int waqt, node;
+    Pair(int time, int n){
+        waqt = time;
         node = n;
-        time = t;
     }
 }
 class Solution {
@@ -10,30 +10,28 @@ class Solution {
         ArrayList<ArrayList<Pair>> adj = new ArrayList<>();
         for(int i=0; i<=n; i++) adj.add(new ArrayList<>());
         for(int time[]: times){
-            adj.get(time[0]).add(new Pair(time[1], time[2]));
+            adj.get(time[0]).add(new Pair(time[2], time[1]));
         }
         int dist[] = new int[n+1];
-        for(int i=0; i<=n; i++){
-            dist[i] = Integer.MAX_VALUE;
-        }
+        Arrays.fill(dist, Integer.MAX_VALUE);
         dist[k] = 0;
-        PriorityQueue<Pair> pq = new PriorityQueue<>((x, y) -> x.time - y.time);
-        pq.offer(new Pair(k, 0));
+        PriorityQueue<Pair> pq = new PriorityQueue<>((a, b) -> (a.waqt - b.waqt));
+        pq.add(new Pair(0, k));
         while(!pq.isEmpty()){
-            int no = pq.peek().node;
-            int t = pq.peek().time;
+            int node = pq.peek().node;
+            int time = pq.peek().waqt;
             pq.poll();
-            for(Pair it: adj.get(no)){
-                if(t + it.time < dist[it.node]){
-                    dist[it.node] = t + it.time;
-                    pq.offer(new Pair(it.node, dist[it.node]));
+            for(Pair it: adj.get(node)){
+                if(time + it.waqt < dist[it.node]){
+                    dist[it.node] = time + it.waqt;
+                    pq.add(new Pair(dist[it.node], it.node));
                 }
             }
         }
         int ans = 0;
         for(int i=1; i<=n; i++){
             if(dist[i] == Integer.MAX_VALUE) return -1;
-            ans = Math.max(ans, dist[i]);
+            ans = Math.max(dist[i], ans);
         }
         return ans;
     }
