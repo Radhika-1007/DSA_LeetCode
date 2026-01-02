@@ -15,7 +15,7 @@ class Solution {
         for(int i=0; i<n; i++){
             for(int j=0; j<m; j++){
                 if(pacific[i][j] == true && atlantic[i][j] == true){
-                    result.add(new ArrayList<>(Arrays.asList(i, j)));
+                    result.add(Arrays.asList(i, j));
                 }
             }
         }
