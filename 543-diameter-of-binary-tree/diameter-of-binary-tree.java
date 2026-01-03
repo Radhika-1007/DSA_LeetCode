@@ -19,7 +19,7 @@ class Solution {
         td(root, diameter);
         return diameter[0];
     }
-    private int td(TreeNode root, int diameter[]){
+    public int td(TreeNode root, int diameter[]){
         if(root == null) return 0;
         int lh = td(root.left, diameter);
         int rh = td(root.right, diameter);
