@@ -3,14 +3,14 @@ class Solution {
         int n = nums.length;
         int dp[] = new int[n];
         Arrays.fill(dp, 1);
-        int maxi = 1;
-        for(int ind=0; ind<n; ind++){
-            for(int prev=0; prev<ind; prev++){
-                if(nums[prev] < nums[ind]){
-                    dp[ind] = Math.max(1+dp[prev], dp[ind]);
+        int maxi = Integer.MIN_VALUE;
+        for(int i=0; i<n; i++){
+            for(int prev = 0; prev<i; prev++){
+                if(nums[prev] < nums[i]){
+                    dp[i] = Math.max(1+dp[prev], dp[i]);
                 }
             }
-            maxi = Math.max(maxi, dp[ind]);
+            maxi = Math.max(maxi, dp[i]);
         }
         return maxi;
     }
