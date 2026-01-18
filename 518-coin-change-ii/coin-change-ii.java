@@ -7,13 +7,13 @@ class Solution {
     }
     public int f(int i, int amount, int coins[], int dp[][]){
         if(amount == 0) return 1;
-        if(i<0) return 0;
+        if(i<0) return 0; 
         if(dp[i][amount] != -1) return dp[i][amount];
-        int take = 0;
-        if(coins[i] <= amount){
-            take = f(i, amount-coins[i], coins, dp);
-        }
         int nottake = f(i-1, amount, coins, dp);
+        int take = 0;
+        if(coins[i] <=amount){
+            take = f(i, amount - coins[i], coins, dp);
+        }
         return dp[i][amount] = take + nottake;
     }
 }
