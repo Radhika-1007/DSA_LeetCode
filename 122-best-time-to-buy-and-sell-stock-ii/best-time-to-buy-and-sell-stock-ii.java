@@ -1,18 +1,14 @@
 class Solution {
     public int maxProfit(int[] prices) {
         int n = prices.length;
-        int dp[][] = new int[n+1][2];
-        dp[n][0] = dp[n][1] = 0;
+        int aheadBuy = 0; //dp[n][1]
+        int aheadSell = 0; //dp[n][0]
         for(int i=n-1; i>=0; i--){
-            for(int buy = 1; buy>=0; buy--){
-                if(buy == 1){
-                    dp[i][buy] = Math.max(-prices[i] + dp[i+1][0], dp[i+1][1]);
-                }
-                else{
-                    dp[i][buy] = Math.max(prices[i] + dp[i+1][1], dp[i+1][0]);
-                }
-            }
+            int currBuy = Math.max(-prices[i] + aheadSell, aheadBuy);
+            int currSell = Math.max(prices[i] + aheadBuy, aheadSell);
+            aheadSell = currSell;
+            aheadBuy = currBuy;
         }
-        return dp[0][1];
+        return aheadBuy;
     }
 }
