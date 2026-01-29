@@ -1,6 +1,6 @@
 class Solution {
     public List<String> generateParenthesis(int n) {
-        List<String> res= new ArrayList<>();
+        List<String> res = new ArrayList<>();
         f(0, 0, n, res, new StringBuilder());
         return res;
     }
@@ -13,12 +13,11 @@ class Solution {
             path.append('(');
             f(open+1, close, n, res, path);
             path.deleteCharAt(path.length()-1);
-        }    
+        }
         if(close < open){
             path.append(')');
             f(open, close+1, n, res, path);
             path.deleteCharAt(path.length()-1);
-        }    
-         
+        }
     }
 }
