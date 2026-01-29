@@ -5,7 +5,7 @@ class Solution {
         return res;
     }
     public void f(int i, int nums[], List<List<Integer>> res, List<Integer> path){
-        if(i == nums.length){
+        if(i >= nums.length){
             res.add(new ArrayList<>(path));
             return;
         }
