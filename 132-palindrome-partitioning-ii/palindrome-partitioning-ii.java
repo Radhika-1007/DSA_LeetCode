@@ -8,10 +8,8 @@ class Solution {
     public int f(int i, String s, int dp[], int n){
         if(i==n) return 0;
         if(dp[i] != -1) return dp[i];
-        StringBuilder temp = new StringBuilder("");
         int min = Integer.MAX_VALUE;
         for(int j=i; j<n; j++){
-            temp.append(s.charAt(j));
             if(isPalindrome(i, j, s)){
                 int cut = 1 + f(j+1, s, dp, n);
                 min = Math.min(cut, min);
