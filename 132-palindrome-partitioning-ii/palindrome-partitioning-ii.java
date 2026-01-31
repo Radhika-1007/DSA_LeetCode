@@ -1,12 +1,21 @@
 class Solution {
     public int minCut(String s) {
         int n = s.length();
+        boolean pal[][] = new boolean[n][n];
+        for(int i=n-1; i>=0; i--){
+            for(int j=i; j<n; j++){
+                if(s.charAt(i) == s.charAt(j)){
+                    if(j-i<=2) pal[i][j] = true;
+                    else pal[i][j] = pal[i+1][j-1];
+                }
+            }
+        }
         int dp[] = new int[n+1];
         dp[n] = 0;
         for(int i=n-1; i>=0; i--){
             int min = Integer.MAX_VALUE;
             for(int j=i; j<n; j++){
-                if(isPalindrome(i, j, s)){
+                if(pal[i][j]){
                     int cut = 1 + dp[j+1];
                     min = Math.min(cut, min);
                 }
@@ -14,12 +23,5 @@ class Solution {
             dp[i] = min;
         }
         return dp[0] -1;
-    }
-    public boolean isPalindrome(int i, int j, String s){
-        while(i<j){
-            if(s.charAt(i) != s.charAt(j)) return false;
-            i++; j--;
-        }
-        return true;
     }
 }
