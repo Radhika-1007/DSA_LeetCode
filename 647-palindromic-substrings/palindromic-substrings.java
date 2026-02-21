@@ -1,8 +1,7 @@
 class Solution {
     int n;
     public int countSubstrings(String s) {
-        n = s.length();
-        int count = 0;
+        n = s.length(); int  count = 0;
         for(int i=0; i<n; i++){
             count += f(s, i, i);
             count += f(s, i, i+1);
