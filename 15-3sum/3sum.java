@@ -1,5 +1,5 @@
 class Solution {
-    public List<List<Integer>> threeSum(int[] nums) {
+    public List<List<Integer>> threeSum(int[] nums){
         List<List<Integer>> res = new ArrayList<>();
         int n = nums.length;
         Arrays.sort(nums);
@@ -14,7 +14,7 @@ class Solution {
                     while(left < right && nums[right] == nums[right-1]) right--;
                     left++;
                     right--;
-                }
+                } 
                 else if(sum < 0) left++;
                 else right--;
             }
