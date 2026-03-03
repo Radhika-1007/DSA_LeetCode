@@ -2,24 +2,17 @@ class Solution {
     public int rob(int[] nums) {
         int n = nums.length;
         if(n==1) return nums[0];
-        ArrayList<Integer> temp1 = new ArrayList<>();
-        ArrayList<Integer> temp2 = new ArrayList<>();
-        for(int i=0; i<n; i++){
-            if(i!=0) temp1.add(nums[i]);
-            if(i!=n-1) temp2.add(nums[i]);
-        }
-        int dp1[] = new int[temp1.size()];
-        int dp2[] = new int[temp2.size()];
-        Arrays.fill(dp1, -1);
-        Arrays.fill(dp2, -1);
-        return Math.max(f(temp1.size()-1, dp1, temp1), f(temp2.size()-1, dp2, temp2));
+        return Math.max(f(0, n-2, nums), f(1, n-1, nums));
     }
-    public int f(int i, int dp[], ArrayList<Integer> temp){
-        if(i<0) return 0;
-        if(i==0) return temp.get(0);
-        if(dp[i] != -1) return dp[i];
-        int nottake = f(i-1, dp, temp);
-        int take = temp.get(i) + f(i-2, dp, temp);
-        return dp[i] = Math.max(nottake, take);
+    public int f(int start, int end, int nums[]){
+       int prev2 = 0, prev1 = 0;
+        for(int i=start; i<=end; i++){
+            int take = nums[i] + prev2;
+            int nottake = prev1;
+            int curr = Math.max(take, nottake);
+            prev2 = prev1;
+            prev1 = curr;
+        }
+        return prev1;
     }
 }
