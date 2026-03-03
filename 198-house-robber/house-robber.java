@@ -6,6 +6,7 @@ class Solution {
         return f(n-1, nums, dp);
     }
     public int f(int i, int nums[], int dp[]){
+        if(i==0) return nums[i];
         if(i<0) return 0;
         if(dp[i] != -1) return dp[i];
         int nottake = f(i-1, nums, dp);
