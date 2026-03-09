@@ -1,22 +1,22 @@
 class Solution {
-    int n;
-    int dp[][];
     public int coinChange(int[] coins, int amount) {
-        n = coins.length;
-        dp = new int[n][amount+1];
-        for(int i=0; i<n; i++) Arrays.fill(dp[i], -1);
-        int res = f(n-1, coins, amount);
-        return (res == (int)1e8)? -1: res;
-    }
-    private int f(int i, int coins[], int target){
-        if(target == 0) return 0;
-        if(i<0) return (int)1e8;
-        if(dp[i][target] != -1) return dp[i][target];
-        int nottake = f(i-1, coins, target);
-        int take = (int)1e8;
-        if(coins[i] <= target){
-            take = 1 + f(i, coins, target-coins[i]);
+        int n = coins.length;
+        int dp[][] = new int[n][amount+1];
+        for(int t=0; t<=amount; t++){
+            if(t % coins[0] == 0) dp[0][t] = t / coins[0];
+            else dp[0][t] = (int) 1e8;
         }
-        return dp[i][target] = Math.min(take, nottake);
+        for(int i=1; i<n; i++){
+            for(int target=0; target <= amount; target++){
+                int nottake = dp[i-1][target];
+                int take = (int)1e8;
+                if(coins[i] <= target){
+                    take = 1 + dp[i][target-coins[i]];
+                }
+                dp[i][target] = Math.min(nottake, take);
+            }
+        }
+        int res = dp[n-1][amount];
+        return (res == (int)1e8)? -1: res;
     }
 }
