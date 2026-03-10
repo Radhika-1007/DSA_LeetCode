@@ -1,27 +1,24 @@
 class Solution {
+    Boolean dp[][];
+    int n;
     public boolean canPartition(int[] nums) {
-        int n = nums.length;
+        n = nums.length;
         int total = 0;
-        for(int i=0; i<n; i++){
-            total += nums[i];
-        }
-        int target = total/2;
+        for(int num: nums) total += num;
         if(total % 2 != 0) return false;
-        int dp[][] = new int[n][target+1];
-        for(int i=0; i<n; i++) Arrays.fill(dp[i], -1);
-        return f(n-1, target, nums, dp);
+        int target = total/2;
+        dp = new Boolean[n][target+1];
+        return f(n-1, nums, target);
     }
-    private boolean f(int i, int target, int nums[], int dp[][]){
+    public boolean f(int i, int nums[], int target){
         if(target == 0) return true;
-        if(i==0) return nums[0] == target;
-        if(dp[i][target] != -1) return dp[i][target] == 1;
-        boolean nottake = f(i-1, target, nums, dp);
+        if(i==0) return nums[i] == target;
+        if(dp[i][target] != null) return dp[i][target];
+        boolean nottake = f(i-1, nums, target);
         boolean take = false;
         if(nums[i] <= target){
-            take = f(i-1, target-nums[i], nums, dp);
+            take = f(i-1, nums, target - nums[i]);
         }
-        boolean result = take || nottake;
-        dp[i][target] = result? 1: 0;
-        return result;
+        return dp[i][target] = take || nottake;
     }
 }
