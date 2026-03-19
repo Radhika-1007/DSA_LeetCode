@@ -1,30 +1,29 @@
 class Solution {
-    private int dfs(int vis[][], int grid[][], int row, int col){
-        vis[row][col] = 1;
-        int dir[][] = {{-1,0}, {0,-1}, {0,1}, {1,0}};
+    int n, m;
+    public int maxAreaOfIsland(int[][] grid) {
+        n = grid.length; m = grid[0].length; 
+        int vis[][] = new int[n][m];
+        int dir[][] = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
+        int maxArea = Integer.MIN_VALUE;
+        for(int i=0; i<n; i++){
+            for(int j=0; j<m; j++){
+                if(vis[i][j] == 0 && grid[i][j] == 1){
+                    maxArea = Math.max(maxArea, dfs(i, j, grid, vis, dir));
+                } 
+            }
+        }
+        return (maxArea == Integer.MIN_VALUE)? 0: maxArea;
+    }
+    public int dfs(int i, int j, int[][] grid, int vis[][], int dir[][]){
+        vis[i][j] = 1;
         int area = 1;
-        for(int i=0; i<4; i++){
-            int nr = row + dir[i][0];
-            int nc = col + dir[i][1];
-            if(nr>=0 && nr<grid.length && nc>=0 && nc<grid[0].length && grid[nr][nc] == 1 && vis[nr][nc] == 0){
-                area += dfs(vis, grid, nr, nc);
-            
+        for(int d=0; d<4; d++){
+            int nr = dir[d][0] + i;
+            int nc = dir[d][1] + j;
+            if(nr>=0 && nr<n && nc>=0 && nc<m && grid[nr][nc] == 1 && vis[nr][nc] == 0){
+                area += dfs(nr, nc, grid, vis, dir);
             }
         }
         return area;
-    }
-    public int maxAreaOfIsland(int[][] grid) {
-        int n=grid.length, m = grid[0].length;
-        int vis[][] = new int[n][m];
-        int maxArea = 0;
-        for(int i=0; i<n; i++){
-            for(int j=0; j<m; j++){
-                if(grid[i][j] == 1 && vis[i][j] == 0){
-                    int area = dfs(vis, grid, i, j);
-                    maxArea = Math.max(maxArea, area);
-                }
-            }
-        }
-        return maxArea;
     }
 }
