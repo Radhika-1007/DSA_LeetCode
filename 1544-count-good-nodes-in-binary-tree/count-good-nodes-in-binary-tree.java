@@ -17,13 +17,13 @@ class Solution {
     public int goodNodes(TreeNode root) {
         return dfs(root, root.val);
     }
-    public int dfs(TreeNode node, int maxSoFar){
-        if(node == null) return 0;
+    public int dfs(TreeNode root, int maxSoFar){
+        if(root == null) return 0;
         int count = 0;
-        if(node.val >= maxSoFar) count++;
-        maxSoFar = Math.max(maxSoFar, node.val);
-        count += dfs(node.left, maxSoFar);
-        count += dfs(node.right, maxSoFar);
+        if(root.val >= maxSoFar) count++;
+        maxSoFar = Math.max(maxSoFar, root.val);
+        count += dfs(root.left, maxSoFar);
+        count += dfs(root.right, maxSoFar);
         return count;
     }
 }
