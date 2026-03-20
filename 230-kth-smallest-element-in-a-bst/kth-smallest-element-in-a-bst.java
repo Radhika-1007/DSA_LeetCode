@@ -23,9 +23,7 @@ class Solution {
         if(root == null) return;
         f(root.left, k);
         cut++;
-        if(cut == k){
-            result = root.val;
-        }
+        if(cut == k) result = root.val;
         f(root.right, k);
     }
 }
