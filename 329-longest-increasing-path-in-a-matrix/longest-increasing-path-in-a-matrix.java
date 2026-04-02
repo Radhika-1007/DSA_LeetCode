@@ -1,31 +1,29 @@
 class Solution {
+    int n, m;
+    int dir[][] = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+    int dp[][];
     public int longestIncreasingPath(int[][] matrix) {
-        int n = matrix.length, m = matrix[0].length;
-        int dir[][] = {{-1, 0}, {0, -1}, {0, 1}, {1, 0}};
-        int dp[][] = new int[n+1][m+1];
-        for(int i=0; i<=n; i++){
-            Arrays.fill(dp[i], -1);
-        }
-        int ans = 0;
+        n = matrix.length; m = matrix[0].length;
+        int ans = Integer.MIN_VALUE;
+        dp = new int[n][m];
+        for(int i=0; i<n; i++) Arrays.fill(dp[i], -1);
         for(int i=0; i<n; i++){
             for(int j=0; j<m; j++){
-                ans = Math.max(ans, f(matrix, i, j, dir, dp));
+                ans = Math.max(ans, f(i, j, matrix));
             }
         }
         return ans;
     }
-    public int f(int matrix[][], int row, int col, int dir[][], int dp[][]){
-        if(dp[row][col] != -1) return dp[row][col];
-        int maxlen = 1;
-        for(int i=0; i<4; i++){
-            int nr = row + dir[i][0];
-            int nc = col + dir[i][1];
-            if(nr>=0 && nr<matrix.length && nc>=0 && nc<matrix[0].length && matrix[nr][nc] > matrix[row][col]){
-                int len = 1 + f(matrix, nr, nc, dir, dp);
-                maxlen = Math.max(maxlen, len);
+    public int f(int i, int j, int matrix[][]){
+        if(dp[i][j] != -1) return dp[i][j];
+        int ans = 1;
+        for(int d=0; d<4; d++){
+            int nr = i + dir[d][0];
+            int nc = j + dir[d][1];
+            if(nr>=0 && nr<n && nc>=0 && nc<m && matrix[i][j] < matrix[nr][nc]){
+                ans = Math.max(ans, 1 + f(nr, nc, matrix));
             }
         }
-        dp[row][col] = maxlen;
-        return maxlen;
+        return dp[i][j] = ans;
     }
 }
