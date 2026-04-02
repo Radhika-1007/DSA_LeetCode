@@ -1,20 +1,48 @@
 class Solution {
+    int dp[][];
+    int n;
     public int maxProfit(int[] prices) {
-        int n = prices.length;
-        int dp[][] = new int[n][2];
-        for(int i=0; i<n; i++){
-            Arrays.fill(dp[i], -1);
-        }
-        return f(0, 1, dp, prices);
+        n = prices.length;
+        dp = new int[n][2];
+        for(int i=0; i<n; i++) Arrays.fill(dp[i], -1);
+        return f(0, 1, prices);
     }
-    private int f(int ind, int buy, int dp[][], int prices[]){
-        if(ind >= prices.length) return 0;
-        if(dp[ind][buy] != -1) return dp[ind][buy];
-        if(buy==1){
-            return dp[ind][buy] = Math.max(-prices[ind] + f(ind + 1, 0, dp, prices), 0 + f(ind+1, 1, dp, prices) );
+    public int f(int i, int buy, int prices[]){
+        if(i>=n) return 0;
+        if(dp[i][buy] != -1) return dp[i][buy];
+        if(buy == 1){
+            dp[i][buy] = Math.max(f(i+1, 1, prices), -prices[i] + f(i+1, 0, prices));
         }
         else{
-            return dp[ind][buy] = Math.max(prices[ind] + f(ind+2, 1, dp, prices), 0 + f(ind+1, 0, dp, prices));
+            dp[i][buy] = Math.max(prices[i] + f(i+2, 1, prices), f(i+1, 0, prices));
         }
+        return dp[i][buy];
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
