@@ -10,14 +10,12 @@
  */
 class Solution {
     public void reorderList(ListNode head) {
-        if(head == null || head.next == null) return;
-        ListNode slow = head;
-        ListNode fast = head;
+        ListNode slow = head, fast = head;
         while(fast != null && fast.next != null && fast.next.next != null){
             slow = slow.next;
             fast = fast.next.next;
         }
-        ListNode second = reverseList(slow.next);
+        ListNode second = reverse(slow.next);
         slow.next = null;
         ListNode first = head;
         while(second != null){
@@ -27,10 +25,9 @@ class Solution {
             second.next = temp1;
             first = temp1;
             second = temp2;
-
         }
     }
-    private ListNode reverseList(ListNode head){
+    public ListNode reverse(ListNode head){
         ListNode prev = null;
         ListNode curr = head;
         ListNode next;
