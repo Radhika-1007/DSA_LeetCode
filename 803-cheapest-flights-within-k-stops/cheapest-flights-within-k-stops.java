@@ -12,6 +12,6 @@ class Solution {
             }
             dist = temp;
         }
-        return (dist[dst] != Integer.MAX_VALUE)? dist[dst] : -1;
+        return dist[dst] != Integer.MAX_VALUE?dist[dst]: -1;
     }
 }
