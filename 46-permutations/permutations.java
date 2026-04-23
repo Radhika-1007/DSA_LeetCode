@@ -1,23 +1,24 @@
 class Solution {
+    List<List<Integer>> res;
+    int n;
     public List<List<Integer>> permute(int[] nums) {
-        int freq[] = new int[nums.length];
-        List<List<Integer>> ans = new ArrayList<>();
-        List<Integer> path = new ArrayList<>();
-        f(nums, freq, ans, path);
-        return ans;
+        res = new ArrayList<>();
+        n = nums.length;
+        int vis[] = new int[n];
+        f(0, vis, new ArrayList<>(), nums);
+        return res;
     }
-    private void f(int nums[], int freq[], List<List<Integer>> ans, List<Integer> path){
-        if(path.size() == nums.length) {
-            ans.add(new ArrayList<>(path));
-            return;
+    public void f(int ind, int vis[], List<Integer> path, int nums[]){
+        if(path.size() == n){
+            res.add(new ArrayList<>(path));
         }
-        for(int i=0; i<nums.length; i++){
-            if(freq[i] == 0){
-                freq[i] = 1;
+        for(int i=0; i<n; i++){
+            if(vis[i] == 0){
+                vis[i] = 1;
                 path.add(nums[i]);
-                f(nums, freq, ans, path);
+                f(i+1, vis, path, nums);
                 path.remove(path.size()-1);
-                freq[i] = 0;
+                vis[i] = 0;
             }
         }
     }
