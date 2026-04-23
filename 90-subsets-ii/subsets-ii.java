@@ -1,17 +1,20 @@
 class Solution {
+    List<List<Integer>> res;
+    int n;
     public List<List<Integer>> subsetsWithDup(int[] nums) {
-        List<List<Integer>> res = new ArrayList<>();
+        res = new ArrayList<>();
+        n = nums.length;
         Arrays.sort(nums);
-        f(0, nums, res, new ArrayList<>());
+        f(0, nums, new ArrayList<>());
         return res;
     }
-    public void f(int ind, int nums[], List<List<Integer>> res, List<Integer> path){
-       res.add(new ArrayList<>(path)); 
-        for(int i=ind; i<nums.length; i++){
+    public void f(int ind, int nums[], List<Integer> path){
+        res.add(new ArrayList<>(path));
+        for(int i = ind; i<n; i++){
             if(i>ind && nums[i] == nums[i-1]) continue;
             path.add(nums[i]);
-            f(i+1, nums, res, path);
-            path.remove(path.size()-1);
+            f(i+1, nums, path);
+            path.remove(path.size() - 1);
         }
     }
 }
