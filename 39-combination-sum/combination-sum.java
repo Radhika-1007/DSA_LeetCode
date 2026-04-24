@@ -1,21 +1,24 @@
 class Solution {
+    List<List<Integer>> res;
+    int n;
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        List<List<Integer>> combine = new ArrayList<>();
-        f(0, target, candidates, combine, new ArrayList<>());
-        return combine;
+        res = new ArrayList<>();
+        n = candidates.length;
+        f(0, candidates, target, new ArrayList<>());
+        return res;
     }
-    public void f(int i, int target, int candidates[], List<List<Integer>> combine, List<Integer> path){
-        if(i == candidates.length){
+    public void f(int i, int nums[], int target, List<Integer> path){
+        if(i==n){
             if(target == 0){
-                combine.add(new ArrayList<>(path));
+            res.add(new ArrayList<>(path));
             }
             return;
         }
-        if(candidates[i] <= target){
-            path.add(candidates[i]);
-            f(i, target - candidates[i], candidates, combine, path);
+        if(nums[i] <= target){
+            path.add(nums[i]);
+            f(i, nums, target - nums[i], path);
             path.remove(path.size()-1);
         }
-        f(i+1, target, candidates, combine, path);
+        f(i+1, nums, target, path);
     }
 }
