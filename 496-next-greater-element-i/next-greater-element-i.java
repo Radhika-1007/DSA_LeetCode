@@ -3,16 +3,14 @@ class Solution {
         int n = nums1.length, m = nums2.length;
         Stack<Integer> st = new Stack<>();
         HashMap<Integer, Integer> mp = new HashMap<>();
-        for(int i=0; i<m; i++){
-            while(!st.isEmpty() && nums2[i] > st.peek()){
-                mp.put(st.pop(), nums2[i]);
-            }
+        for(int i=m-1; i>=0; i--){
+            while(!st.isEmpty() && nums2[i] >= st.peek())st.pop();
+            mp.put(nums2[i],  (st.isEmpty())? -1: st.peek());
             st.push(nums2[i]);
         }
-        int arr[] = new int[n];
         for(int i=0; i<n; i++){
-            arr[i] = mp.getOrDefault(nums1[i], -1);
+            nums1[i] = mp.get(nums1[i]);
         }
-        return arr;
+        return nums1;
     }
 }
