@@ -1,6 +1,6 @@
 class Solution {
     public int maxProduct(int[] nums) {
-        int n = nums.length, maxProd = 1, minProd = 1, res = nums[0];
+        int maxProd = 1, minProd = 1, res = nums[0];
         for(int num: nums){
             int temp = num * maxProd;
             maxProd = Math.max(num, Math.max(num * maxProd, num * minProd));
