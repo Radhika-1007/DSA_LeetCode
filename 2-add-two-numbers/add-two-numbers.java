@@ -24,7 +24,7 @@ class Solution {
                 l2 = l2.next;
             }
             carry = sum/10;
-            temp.next = new ListNode(sum%10);
+            temp.next = new ListNode(sum % 10);
             temp = temp.next;
         }
         return dummy.next;
