@@ -1,6 +1,6 @@
 class Solution {
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        ArrayList<ArrayList<Integer>> adj = new ArrayList<>();
+        List<List<Integer>> adj = new ArrayList<>();
         for(int i=0; i<numCourses; i++) adj.add(new ArrayList<>());
         int indegree[] = new int[numCourses];
         for(int edge[]: prerequisites){
@@ -14,11 +14,11 @@ class Solution {
         int count = 0;
         while(!q.isEmpty()){
             int node = q.poll();
-            count++;
             for(int it: adj.get(node)){
                 indegree[it]--;
                 if(indegree[it] == 0) q.offer(it);
             }
+            count++;
         }
         return count == numCourses;
     }
