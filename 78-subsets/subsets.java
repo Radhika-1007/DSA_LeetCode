@@ -12,9 +12,9 @@ class Solution {
             res.add(new ArrayList<>(path));
             return;
         }
-        f(i+1, nums, path);
         path.add(nums[i]);
         f(i+1, nums, path);
         path.remove(path.size()-1);
+        f(i+1, nums, path);
     }
 }
